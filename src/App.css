@@ -6,7 +6,6 @@ body {
   width: 100%;
   padding-top: 25px;
   font-family: 'Open Sans', sans-serif;
-
  }
 
 
@@ -83,7 +82,7 @@ body {
   
 }
 
-.space {
+.buttonSpace {
 padding-top: 2%;
 }
 
@@ -91,12 +90,14 @@ padding-top: 2%;
   position: relative;
   margin-top: 10%;
   padding-bottom: none;
-  
+  font-size:.9rem;
   
 }
 
 .input {
- width: 80%;
+position:inherit;
+margin-top:none;
+width: 80%;
  line-height: 1;
  border: 1px solid hsl(0, 0%, 90%);;
 }
@@ -109,10 +110,15 @@ padding-top: 2%;
 
 .mediumYbc {
   position: absolute;
-  font-weight: 700;
+  font-weight: 500;
   
 }
 
 .amountCard {
   line-height: 4;
+}
+
+.amountText {
+  padding-top: 2%;
+  font-size:.9rem;
 }

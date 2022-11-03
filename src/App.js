@@ -48,10 +48,11 @@ function App() {
   }
 
 async function approve() {
-  console.log(web3.utils.toChecksumAddress(stakeContractAddress))
+  // e.preventDefault()
+  console.log(accountAddress)
   const approveAmount = amountToApprove;
   ybcContract.methods.approve(web3.utils.toChecksumAddress(stakeContractAddress), web3.utils.toWei(approveAmount)).send({from: accountAddress})
-  console.log(approveAmount)
+  console.log(accountAddress)
 }
 
 async function stakeIt() {
@@ -61,6 +62,7 @@ async function stakeIt() {
   }
 
 async function unstakeIt() {
+    console.log(accountAddress)
     const amountToStakeUnstake = stakingUnstakingAmount;
     stakeContract.methods.unstake(web3.utils.toWei(amountToStakeUnstake)).send({from: accountAddress});
     console.log(amountToStakeUnstake)
@@ -78,49 +80,75 @@ async function getBalance() {
 getBalance()
 },[accountAddress]);
 
-
   return (
-    <div className="App">
+    <div id='grid-start'>
       <Card style={{ width: '19rem'}}>
       <Card.Body>
         <Card.Text>
           Welcome to test app, to get started, connect your wallet
         </Card.Text>
-        <Button variant="primary" onClick={connectWallet}>Connect your wallet</Button>
+        <button className='btn btn-connect' variant="primary" onClick={connectWallet}>Connect your wallet</button>
       </Card.Body>
     </Card>
     <Card style={{ width: '19rem'}}>
       <Card.Body>
-        <Card.Text>
+        <Card.Text className='amountText'>
         Amount you staked
         </Card.Text>
-        <Card>
-        <Card.Body>{stakingBalance} ybc</Card.Body>
+        <Card className='amountCard'>
+        <Card.Text className='smallYbc'>ybc</Card.Text>
+        <Card.Body className='mediumYbc'>{stakingBalance} ybc</Card.Body>
         </Card>
         <form>
+        <Card.Text className='inputText'>Stake or Unstake your Amount</Card.Text>
         <input 
+        className='input'
         type="number" 
         step="0.01" 
         onInput={e => setAmountToApprove(e.target.value)}/>
-        <Button variant="primary" onClick={approve}>Enable stake/unstake</Button>
+        <div className='buttonSpace'>
+        <button 
+        className='btn btn-enable' 
+        variant="primary" 
+        type='submit'
+        onClick={e => {
+          e.preventDefault()
+          approve()
+          }}>Enable stake/unstake</button>
+        </div>
         </form>
       </Card.Body>
     </Card>
     <Card style={{ width: '19rem'}}>
       <Card.Body>
-        <Card.Text>
+        <Card.Text className='amountText'>
        Amount you staked
         </Card.Text>
-        <Card>
-        <Card.Body>{stakingBalance} ybc</Card.Body>
+        <Card className='amountCard'>
+        <Card.Text className='smallYbc'>ybc</Card.Text>
+        <Card.Body className='mediumYbc' >{stakingBalance} ybc</Card.Body>
         </Card>
         <form>
-        <input 
+        <Card.Text className='inputText'>Stake or Unstake your Amount</Card.Text>
+        <input
+        className='input'
         type="number" 
-        step="0.01" 
+        step="0.01"
         onInput={e => setStakingUnstakingAmount(e.target.value)}/>
-        <Button variant="primary" onClick={stakeIt}>Stake</Button>
-        <Button variant="primary" onClick={unstakeIt}>Unstake</Button>
+        <div className='buttonSpace'>
+        <button 
+        className='btn btn-stake' 
+        variant="primary" 
+        onClick={e => {
+          e.preventDefault()
+          stakeIt()}}>Stake</button>
+        <button 
+        className='btn btn-unstake' 
+        variant="primary" 
+        onClick={e => {
+          e.preventDefault()
+          unstakeIt()}}>Unstake</button>
+        </div>
         </form>
       </Card.Body>
     </Card>
