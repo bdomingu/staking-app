@@ -3,7 +3,6 @@ import {React, useState, useEffect} from 'react';
 import stakingAbi from './stakingAbi.json';
 import ybcAbi from './ybcAbi.json';
 import Web3 from 'web3';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 
@@ -16,7 +15,7 @@ const stakeContractAddress = "0xD80b3E1992f8D619E13B82F9a71d706ced9d0874";
 
 function App() {
   
-  const [accountAddress, setAccountAddress] = useState();
+  const [accountAddress, setAccountAddress] = useState('');
   const [amountToApprove, setAmountToApprove] = useState();
   const [stakingUnstakingAmount, setStakingUnstakingAmount] = useState();
   const [stakingBalance, setStakingBalance] = useState();
@@ -26,6 +25,7 @@ function App() {
   
   const ybcContract = new web3.eth.Contract(ybcAbi, ybcContractAddress);
   const stakeContract = new web3.eth.Contract(stakingAbi, stakeContractAddress);
+
 
   const connectWallet = async() => {
     await window.ethereum.request({
@@ -38,27 +38,28 @@ function App() {
     });
     const account = await window.ethereum.request({method: "eth_requestAccounts"});
     setAccountAddress(account[0]);
-    // console.log(accountAddress)
-  
 
-    window.alert("Connected wallet address " + account)
+    window.alert("Connected wallet address " + account) 
 
-    
-    
   }
 
+
+
 async function approve() {
-  // e.preventDefault()
-  console.log(accountAddress)
+  if (!accountAddress) {
+    window.alert("Please connect your wallet.")
+  } else {
   const approveAmount = amountToApprove;
   ybcContract.methods.approve(web3.utils.toChecksumAddress(stakeContractAddress), web3.utils.toWei(approveAmount)).send({from: accountAddress})
-  console.log(accountAddress)
+  
+  }
 }
 
 async function stakeIt() {
     const amountToStakeUnstake = stakingUnstakingAmount;
     stakeContract.methods.stake(web3.utils.toWei(amountToStakeUnstake)).send({from: accountAddress})
     console.log(amountToStakeUnstake)
+   
   }
 
 async function unstakeIt() {
@@ -66,18 +67,16 @@ async function unstakeIt() {
     const amountToStakeUnstake = stakingUnstakingAmount;
     stakeContract.methods.unstake(web3.utils.toWei(amountToStakeUnstake)).send({from: accountAddress});
     console.log(amountToStakeUnstake)
+    
   }
 
 useEffect(() => {
-async function getBalance() {
-  const balance = await stakeContract.methods.stakedAmount(accountAddress).call()
-  const newBalance =  web3.utils.fromWei((balance).toString(), 'ether')
-  setStakingBalance(newBalance)
-  console.log(stakingBalance);
-
-}
-
-getBalance()
+  async function getBalance() {
+    const balance = await stakeContract.methods.stakedAmount(accountAddress).call()
+    const newBalance =  web3.utils.fromWei((balance).toString(), 'ether')
+    setStakingBalance(newBalance) 
+  }
+  getBalance()
 },[accountAddress]);
 
   return (
@@ -97,12 +96,13 @@ getBalance()
         </Card.Text>
         <Card className='amountCard'>
         <Card.Text className='smallYbc'>ybc</Card.Text>
-        <Card.Body className='mediumYbc'>{stakingBalance} ybc</Card.Body>
+        {accountAddress !== '' ? <Card.Body className='mediumYbc'>{stakingBalance} ybc</Card.Body> : <Card.Body className='mediumYbc'>-</Card.Body>}
         </Card>
         <form>
         <Card.Text className='inputText'>Stake or Unstake your Amount</Card.Text>
         <input 
         className='input'
+        min='0.01'
         type="number" 
         step="0.01" 
         onInput={e => setAmountToApprove(e.target.value)}/>
@@ -126,13 +126,14 @@ getBalance()
         </Card.Text>
         <Card className='amountCard'>
         <Card.Text className='smallYbc'>ybc</Card.Text>
-        <Card.Body className='mediumYbc' >{stakingBalance} ybc</Card.Body>
+        {accountAddress !== '' ? <Card.Body className='mediumYbc'>{stakingBalance} ybc</Card.Body> : <Card.Body className='mediumYbc'>-</Card.Body>}
         </Card>
         <form>
         <Card.Text className='inputText'>Stake or Unstake your Amount</Card.Text>
         <input
         className='input'
-        type="number" 
+        type="number"
+        min="0.01"
         step="0.01"
         onInput={e => setStakingUnstakingAmount(e.target.value)}/>
         <div className='buttonSpace'>
