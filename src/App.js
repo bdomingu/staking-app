@@ -1,5 +1,5 @@
 import './App.css';
-import {React, useState, useEffect} from 'react';
+import {React, useState, useEffect, useRef} from 'react';
 import stakingAbi from './stakingAbi.json';
 import ybcAbi from './ybcAbi.json';
 import Web3 from 'web3';
@@ -79,6 +79,8 @@ useEffect(() => {
   getBalance()
 },[accountAddress]);
 
+
+
   return (
     <div id='grid-start'>
       <Card style={{ width: '19rem'}}>
@@ -86,7 +88,10 @@ useEffect(() => {
         <Card.Text>
           Welcome to test app, to get started, connect your wallet
         </Card.Text>
-        <button className='btn btn-connect' variant="primary" onClick={connectWallet}>Connect your wallet</button>
+        <button 
+        className= "btn btn-glow btn-connect" 
+        variant="primary" 
+        onClick={connectWallet}>Connect your wallet</button>
       </Card.Body>
     </Card>
     <Card style={{ width: '19rem'}}>
@@ -108,9 +113,8 @@ useEffect(() => {
         onInput={e => setAmountToApprove(e.target.value)}/>
         <div className='buttonSpace'>
         <button 
-        className='btn btn-enable' 
+        className="btn btn-glow btn-enable"
         variant="primary" 
-        type='submit'
         onClick={e => {
           e.preventDefault()
           approve()
@@ -138,14 +142,16 @@ useEffect(() => {
         onInput={e => setStakingUnstakingAmount(e.target.value)}/>
         <div className='buttonSpace'>
         <button 
-        className='btn btn-stake' 
+        className= "btn btn-glow btn-stake"
         variant="primary" 
         onClick={e => {
           e.preventDefault()
-          stakeIt()}}>Stake</button>
+          stakeIt()}}>Stake
+          </button>
         <button 
-        className='btn btn-unstake' 
-        variant="primary" 
+        className="btn btn-glow2 btn-unstake"
+        variant="primary"
+        type='submit'
         onClick={e => {
           e.preventDefault()
           unstakeIt()}}>Unstake</button>
