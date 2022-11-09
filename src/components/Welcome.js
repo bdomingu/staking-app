@@ -6,7 +6,7 @@ function Welcome({connectWallet}) {
     <div id='grid-start'>
     <Card style={{ width: '19rem'}}>
     <Card.Body>
-      <Card.Text>
+      <Card.Text className='welcomeText'>
         Welcome to test app, to get started, connect your wallet
       </Card.Text>
       <button 

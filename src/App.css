@@ -18,17 +18,6 @@ body {
 }
 
 
-
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: black;
-}
-
 :root {
   /* violet */
   --primary-color: 0, 128, 128;
@@ -39,6 +28,9 @@ body {
   --text-color: 256, 256, 256;
 }
 
+.text{
+  font-size: 1rem;
+}
 
 .btn {
   font-size: 15px;
@@ -93,7 +85,7 @@ padding-top: 2%;
   position: relative;
   margin-top: 10%;
   padding-bottom: none;
-  font-size:.9rem;
+  font-size:1rem;
   
 }
 
@@ -123,5 +115,5 @@ width: 80%;
 
 .amountText {
   padding-top: 2%;
-  font-size:.9rem;
+  font-size:1rem;
 }
