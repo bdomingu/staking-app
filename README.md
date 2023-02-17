@@ -16,3 +16,4 @@ Once your wallet is connected, you will be able to select a token to stake, appr
 ## **Technologies Used**
 This app was built using React, JavaScript, and ethers.js. The contract is deployed on the Goerli Testnet.
 
+![Screenshot from 2023-02-17 12-52-56](https://user-images.githubusercontent.com/92413990/219782005-7e3dd70d-9312-4cee-9ed0-bbc59381de14.png)
